@@ -2,7 +2,7 @@ package Starlet;
 
 use 5.008_001;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 1;
 __END__
@@ -35,7 +35,7 @@ The server supports following features, and is suitable for running HTTP applica
 
 In addition to the options supported by L<plackup>, Starlet accepts following options(s).
 
-=head2 --num-workers=#
+=head2 --max-workers=#
 
 number of worker processes (default: 10)
 
