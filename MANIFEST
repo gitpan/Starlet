@@ -20,3 +20,4 @@ t/00base-hello.psgi
 t/00base.t
 t/01plack-test.t
 t/02graceful.t
+t/03post.t
