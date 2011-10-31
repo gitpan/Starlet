@@ -26,17 +26,27 @@ sub new {
     my($class, %args) = @_;
 
     my $self = bless {
-        host                => $args{host} || 0,
-        port                => $args{port} || 8080,
-        timeout             => $args{timeout} || 300,
-        keepalive_timeout   => $args{keepalive_timeout} || 2,
-        max_keepalive_reqs  => $args{max_keepalive_reqs} || 1,
-        server_software     => $args{server_software} || $class,
-        server_ready        => $args{server_ready} || sub {},
-        max_reqs_per_child  =>
+        host                 => $args{host} || 0,
+        port                 => $args{port} || 8080,
+        timeout              => $args{timeout} || 300,
+        keepalive_timeout    => $args{keepalive_timeout} || 2,
+        max_keepalive_reqs   => $args{max_keepalive_reqs} || 1,
+        server_software      => $args{server_software} || $class,
+        server_ready         => $args{server_ready} || sub {},
+        min_reqs_per_child   => (
+            defined $args{min_reqs_per_child}
+                ? $args{min_reqs_per_child} : undef,
+        ),
+        max_reqs_per_child   => (
             $args{max_reqs_per_child} || $args{max_requests} || 100,
-        is_multiprocess     => Plack::Util::FALSE,
-        _using_defer_accept => undef,
+        ),
+        spawn_interval       => $args{spawn_interval} || 0,
+        err_respawn_interval => (
+            defined $args{err_respawn_interval}
+                ? $args{err_respawn_interval} : undef,
+        ),
+        is_multiprocess      => Plack::Util::FALSE,
+        _using_defer_accept  => undef,
     }, $class;
 
     if ($args{max_workers} && $args{max_workers} > 1) {
@@ -209,11 +219,7 @@ sub _handle_response {
     my $headers = $res->[1];
     my $body = $res->[2];
     
-    my @lines = (
-        "Date: @{[HTTP::Date::time2str()]}\015\012",
-        "Server: $self->{server_software}\015\012",
-    );
-    
+    my @lines;
     my %send_headers;
     for (my $i = 0; $i < @$headers; $i += 2) {
         my $k = $headers->[$i];
@@ -227,6 +233,13 @@ sub _handle_response {
             $send_headers{$lck} = $v;
         }
     }
+    if ( ! exists $send_headers{server} ) {
+        unshift @lines, "Server: $self->{server_software}\015\012";
+    }
+    if ( ! exists $send_headers{date} ) {
+        unshift @lines, "Date: @{[HTTP::Date::time2str()]}\015\012";
+    }
+
     # try to set content-length when keepalive can be used, or disable it
     if ($$use_keepalive_r) {
         if (defined $send_headers{'content-length'}

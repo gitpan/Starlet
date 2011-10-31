@@ -21,10 +21,10 @@ no_index:
     - inc
     - t
 requires:
-  Parallel::Prefork: 0.07
+  Parallel::Prefork: 0.13
   Plack: 0.992
   Server::Starter: 0.06
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.13
+version: 0.14
