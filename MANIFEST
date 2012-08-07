@@ -9,7 +9,6 @@ inc/Module/Install/ReadmeFromPod.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Plack/Handler/Starlet.pm
-lib/Plack/Server/Standalone/Prefork/Server/Starter.pm
 lib/Starlet.pm
 lib/Starlet/Server.pm
 Makefile.PL
@@ -21,3 +20,5 @@ t/00base.t
 t/01plack-test.t
 t/02graceful.t
 t/03post.t
+t/04-bumpy-life.t
+t/05server-header.t
