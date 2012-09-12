@@ -22,3 +22,4 @@ t/02graceful.t
 t/03post.t
 t/04-bumpy-life.t
 t/05server-header.t
+t/06remote_port.t
