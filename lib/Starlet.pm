@@ -2,7 +2,7 @@ package Starlet;
 
 use 5.008_001;
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 
 1;
 __END__
@@ -80,6 +80,8 @@ L<Server::Starter>
 Kazuho Oku
 
 miyagawa
+
+kazeburo
 
 =head1 LICENSE
 

@@ -8,9 +8,9 @@ build_requires:
   Test::More: 0.88
   Test::TCP: 0.15
 configure_requires:
-  ExtUtils::MakeMaker: 0
+  ExtUtils::MakeMaker: 6.42
 dynamic_config: 0
-generated_by: 'ExtUtils::MakeMaker version 6.68, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Module::Install version 1.00, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -18,11 +18,14 @@ meta-spec:
 name: Starlet
 no_index:
   directory:
-    - t
     - inc
+    - t
 requires:
   Parallel::Prefork: 0.13
   Plack: 0.992
   Server::Starter: 0.06
   perl: 5.008001
+resources:
+  license: http://dev.perl.org/licenses/
 version: 0.20
+x_module_name: Starlet
