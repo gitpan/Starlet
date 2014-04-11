@@ -29,3 +29,4 @@ t/07remote_port.t
 t/08chunked_req.t
 t/09chunked_zero_length.t
 t/10unix_domain_socket.t
+t/11multi-sockets.t
